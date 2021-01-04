@@ -1,11 +1,6 @@
-package com.example.demo.DTO;
-
+package com.example.demo.dto;
 
 import java.time.LocalDate;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,12 +9,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClientDTO {
-
+public class ClientReponse {
 	
 	private String nom;
 	private String prenom;
-	private int age;
+	private LocalDate dateNaissance;
 	private String courriel;
 	private String tel;
 }

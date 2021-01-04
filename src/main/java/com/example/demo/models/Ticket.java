@@ -3,6 +3,7 @@ package com.example.demo.models;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,9 +31,8 @@ public class Ticket {
 	@ManyToOne
 	private Client client;
 	@ManyToOne
-	private Table table;
-	@ManyToMany
+	private com.example.demo.models.Tables tables;
+	@ManyToMany(cascade = CascadeType.REMOVE)
 	@JoinTable(name = "Compose")
-	@JsonIgnore
 	private List<Met> mets ;
 }
