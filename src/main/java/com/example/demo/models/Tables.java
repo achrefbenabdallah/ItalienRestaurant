@@ -13,8 +13,8 @@ import lombok.Data;
 
 @Data
 @Entity
-@javax.persistence.Table(name="Table")
-public class Table {
+@javax.persistence.Table(name="Tables")
+public class Tables {
 	@Id
 	@Column(nullable = false)
 	private long numero;
@@ -22,6 +22,6 @@ public class Table {
 	@Column(length = 50)
 	private String type;
 	private float supplement;
-	@OneToMany(mappedBy = "table",cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "tables",cascade = CascadeType.REMOVE)
 	private List<Ticket> tickets;
 }
