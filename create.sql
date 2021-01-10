@@ -6,4 +6,8 @@ create table ticket (numero bigint not null auto_increment, addition float not n
 alter table compose add constraint FK3mpvpyxplpyiiqywfr63sh9qg foreign key (mets_nom) references met (nom)
 alter table compose add constraint FK9nf8o5dgg4ob7jm5jjdc12l24 foreign key (tickets_numero) references ticket (numero)
 alter table ticket add constraint FKj2rjr6m31hp7m00tm1hdxckov foreign key (client_id) references client (id)
+<<<<<<< Updated upstream
 alter table ticket add constraint FKg9r48jhxp9w23570fuyx5ckut foreign key (tables_numero) references tables (numero)
+=======
+alter table ticket add constraint FKg9r48jhxp9w23570fuyx5ckut foreign key (tables_numero) references tables (numero)
+>>>>>>> Stashed changes
