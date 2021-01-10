@@ -23,4 +23,6 @@ public class TicketRequest {
 	private Client client;
 	private com.example.demo.models.Tables tables;
 	
+	private List<Met> met;
+	
 }

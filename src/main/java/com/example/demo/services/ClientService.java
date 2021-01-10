@@ -15,7 +15,7 @@ public interface ClientService {
 	ClientReponse createClientEntity(ClientRequest request);
 	ClientReponse deleteClientById(long id);
 	ClientReponse updateClientEntity(long id,ClientRequest request);
-	String getMostPlatOrdred(String date);
+	String getMostPlatOrdred(String debut , String fin);
 	ClientReponse clientPlusFidele();
 	String tablePlusReserver();
 	String mostReservedDay(long id);

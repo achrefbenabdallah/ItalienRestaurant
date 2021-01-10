@@ -1,5 +1,6 @@
 package com.example.demo.dto;
 
+import com.example.demo.models.Ticket;
 import com.example.demo.models.Type;
 
 import lombok.AllArgsConstructor;
@@ -14,4 +15,6 @@ public class MetRequest {
 	private String nom;
 	private float prix;
 	private Type type;
+	
+	//private Ticket ticket;
 }

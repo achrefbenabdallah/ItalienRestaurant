@@ -27,6 +27,7 @@ public class Met {
 	@Enumerated(EnumType.STRING)
 	private Type type;
 	@ManyToMany(mappedBy = "mets",  cascade = CascadeType.REMOVE)
+	
 	private List<Ticket> tickets;
 	
 

@@ -13,9 +13,11 @@ import com.example.demo.dto.ClientReponse;
 import com.example.demo.dto.TicketReponse;
 import com.example.demo.dto.TicketRequest;
 import com.example.demo.models.Client;
+import com.example.demo.models.Met;
 import com.example.demo.models.Tables;
 import com.example.demo.models.Ticket;
 import com.example.demo.repositories.ClientRepository;
+import com.example.demo.repositories.MetRepository;
 import com.example.demo.repositories.TableRepository;
 import com.example.demo.repositories.TicketRepository;
 @Service
@@ -24,16 +26,18 @@ public class TicketServiceImpl implements TicketService {
 	TicketRepository repos ;
 	ClientRepository repo;
 	TableRepository rep;
+	MetRepository repository;
 	ModelMapper mapper;
 	
 	
 	@Autowired
-	public TicketServiceImpl(TicketRepository repos, ModelMapper mapper,ClientRepository repo,TableRepository rep) {
+	public TicketServiceImpl(TicketRepository repos, ModelMapper mapper,ClientRepository repo,TableRepository rep,MetRepository repository) {
 		super();
 		this.repos = repos;
 		this.mapper = mapper;
 		this.repo=repo;
 		this.rep=rep;
+		this.repository=repository;
 	}
 
 
@@ -52,9 +56,7 @@ public class TicketServiceImpl implements TicketService {
 
 	@Override
 	public TicketReponse createTicketEntity(TicketRequest request) {
-		// TODO Auto-generated method stub
-		//Ticket entity=mapper.map(request, Ticket.class);
-		//repos.save(entity);
+		
 		
 		Ticket entity=mapper.map(request, Ticket.class);
 		
@@ -71,10 +73,34 @@ public class TicketServiceImpl implements TicketService {
 		entity.setTables(tableInBase);
 		
 		Ticket newEntity=repos.save(entity);
+		entity.setMets(request.getMet());
+		List<Ticket> listTickets;
+		if(request.getMet()!=null)
+		{
+			
+			for(Met met:entity.getMets())
+			{
+				if(met.getTickets()!=null) {
+					listTickets=met.getTickets();
+				}else {
+					listTickets=new ArrayList<>();
+				}
+				listTickets.add(newEntity);
+				met.setTickets(listTickets);
+				repository.save(met);
+			}
+				
+		}
 		
 		
-		//TicketReponse res= new TicketReponse(request.getDate(), request.getAddition(),request.getNbCouvert(), request.getClient(), request.getTables());
-		//repos.save(mapper.map(res, Ticket.class));
+		//Optional<Met> metEntity= repository.findById(request.getMet().getNom());
+		//if(metEntity.isPresent()) {
+			//repository.save(request.getMet());
+		//}else {
+			//throw new NoSuchElementException("met ordred does not exist !");
+		//}
+		
+		
 		return mapper.map(newEntity, TicketReponse.class);
 	}
 
