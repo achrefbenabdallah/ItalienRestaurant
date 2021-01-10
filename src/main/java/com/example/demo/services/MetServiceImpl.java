@@ -14,18 +14,21 @@ import com.example.demo.dto.MetReponse;
 import com.example.demo.dto.MetRequest;
 import com.example.demo.models.Met;
 import com.example.demo.repositories.MetRepository;
+import com.example.demo.repositories.TicketRepository;
 @Service
 public class MetServiceImpl implements MetService{
 
 	private MetRepository repos;
+	private TicketRepository rep;
 	private ModelMapper mapper;
 	
 	
 	@Autowired
-	public MetServiceImpl(MetRepository repos, ModelMapper mapper) {
+	public MetServiceImpl(MetRepository repos, ModelMapper mapper,TicketRepository rep) {
 		super();
 		this.repos = repos;
 		this.mapper = mapper;
+		this.rep=rep;
 	}
 
 
@@ -49,6 +52,7 @@ public class MetServiceImpl implements MetService{
 		// TODO Auto-generated method stub
 		Met entity=mapper.map(request, Met.class);
 		Met newEntity=repos.save(entity);
+		
 		MetReponse res= new MetReponse(entity.getNom(), entity.getPrix(),request.getType());
 		return res;
 	}

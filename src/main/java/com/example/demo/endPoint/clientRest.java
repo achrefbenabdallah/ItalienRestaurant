@@ -130,9 +130,9 @@ public class clientRest {
 		return serviceTicket.updateTicket(numero, request);
 	}
 	
-	@GetMapping("/mostOrdred/{date}")
-	public String getMostOrdredPlat(@PathVariable("date") String date) {
-		return service.getMostPlatOrdred(date);
+	@GetMapping("/mostOrdred/{debut}/{fin}")
+	public String getMostOrdredPlat(@PathVariable("debut") String debut,@PathVariable("fin") String fin) {
+		return service.getMostPlatOrdred(debut, fin);
 	}
 	
 	@GetMapping("/fidele")

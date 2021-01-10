@@ -22,7 +22,9 @@ public class TicketReponse {
 	private LocalDate date;
 	private float addition;
 	private int nbCouvert;
+	@JsonIgnore
 	private Client client;
+	@JsonIgnore
 	private com.example.demo.models.Tables tables;
 	
 }

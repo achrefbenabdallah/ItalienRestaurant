@@ -118,13 +118,42 @@ public class ClientServiceImpl implements ClientService {
 
 
 	@Override
-	public String getMostPlatOrdred(String input) {
+	public String getMostPlatOrdred(String debut , String fin ) {
 		// TODO Auto-generated method stub
-		long max=0;
-		String nom="";
-		LocalDate date = LocalDate.parse(input);
+		
+		LocalDate deb = LocalDate.parse(debut);
+		LocalDate f = LocalDate.parse(fin);
 		List<Ticket> listTickets = repo.findAll();
-		List<String> palts=new ArrayList<String>();
+		List<Ticket> listPeriode=new ArrayList<>();
+		for(Ticket ticket : listTickets)
+		{
+			if(ticket.getDate().isBefore(f)&&ticket.getDate().isAfter(deb)||ticket.getDate().equals(deb)||ticket.getDate().equals(f))
+				listPeriode.add(ticket);
+		}
+		HashMap<String, Integer> plat = new HashMap<>();
+		for(Ticket ticket : listPeriode)
+		{
+			for(Met met:ticket.getMets()) {
+				if(plat.containsKey(met.getNom()))
+					plat.put( met.getNom(), plat.get(met.getNom())+1);
+				else {
+					plat.put( met.getNom(), 0);
+				}
+			}
+			
+		}
+		Integer max=0;
+		String key="";
+		for(Integer val:plat.values())
+			if(val>max) 
+				max=val;
+		for(String val:plat.keySet())	
+			if(plat.get(val)==max)
+				key=val;
+			
+			
+			
+		/*List<String> palts=new ArrayList<String>();
 		List<Met> mets = new ArrayList<>();
 		for(Ticket ticket : listTickets) {
 			if(ticket.getDate().getYear()==date.getYear()&&ticket.getDate().getMonth()==date.getMonth()&&ticket.getDate().getDayOfMonth()==date.getDayOfMonth())
@@ -152,7 +181,11 @@ public class ClientServiceImpl implements ClientService {
 			}
 		}
 		
-		return nom;
+		return nom;*/
+		if(key=="")
+			return "vide";
+		else
+			return key;
 	}
 
 
@@ -289,7 +322,7 @@ public class ClientServiceImpl implements ClientService {
 		List<Ticket> listTicket=repo.findAll();
 		for(Ticket ticket:listTicket)
 		{
-			if(ticket.getDate().isBefore(LocalDate.now())&&ticket.getDate().isAfter(LocalDate.now().minusDays(8)))
+			if(ticket.getDate().isBefore(LocalDate.now())&&ticket.getDate().isAfter(LocalDate.now().minusDays(8))||ticket.getDate().equals(LocalDate.now()))
 				res+=ticket.getAddition();
 					
 		}
